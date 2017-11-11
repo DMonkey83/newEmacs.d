@@ -479,3 +479,6 @@ Emacs love affair.
      (setq org-src-fontify-natively t)
      (setq org-src-tab-acts-natively t)
    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(provide 'emacs-org)
+#+END_SRC

@@ -22,7 +22,7 @@
                          ("marmalade" . "http://marmalade-repo.org/packages/")))
 
 (package-initialize)
-(package-refresh-contents)
+
 #+END_SRC
 ** Customization Section
 #+BEGIN_SRC emacs-lisp
@@ -701,7 +701,7 @@
 #+END_SRC
 * Company
 ** Company
-#+BEGIN_SRC emasc-lisp
+#+BEGIN_SRC emacs-lisp
 (require 'company)
 (setq company-tooltip-align-annotations t)
 (setq company-selection-wrap-around t)
@@ -723,6 +723,7 @@
 
 (require 'company-auctex)
 (require 'company-math)
+(require 'company-tern)
 (require 'company-c-headers)
 (add-to-list 'company-c-headers-path-system "/usr/include/c++/7.1.1/")
 
@@ -738,6 +739,7 @@
          company-clang company-c-headers)
         company-bbdb
         company-elisp
+        company-tern
         ac-js2-company
         company-nxml
         company-css
@@ -815,3 +817,99 @@
 (define-key prog-mode-map [tab] 'tab-indent-or-complete)
 (define-key prog-mode-map (kbd "TAB") 'tab-indent-or-complete)
 #+END_SRC
+** Company Theme
+   #+BEGIN_SRC emacs-lisp
+
+   (set-face-attribute 'company-tooltip nil
+                       :foreground (face-attribute 'font-lock-comment-face :foreground)
+                       :background (face-attribute 'fringe :background))
+   (set-face-attribute 'company-tooltip-selection nil
+                       :background "gray30"
+                       :slant 'italic
+                       :weight 'semibold)
+
+   (set-face-attribute 'company-tooltip-common nil
+                       :foreground (face-attribute 'font-lock-builtin-face :foreground))
+   (set-face-attribute 'company-tooltip-common-selection nil
+                       :foreground (face-attribute 'font-lock-builtin-face :foreground)
+                       :slant 'italic
+                       :weight 'semibold)
+
+   (set-face-attribute 'company-tooltip-annotation nil
+                       :foreground (face-attribute 'font-lock-comment-face :foreground))
+
+   (set-face-attribute 'company-scrollbar-fg nil
+                       :background (face-attribute 'font-lock-comment-face :foreground))
+   (set-face-attribute 'company-scrollbar-bg nil
+                       :background (face-attribute 'fringe :background))
+
+   (set-face-attribute 'company-preview-common nil
+                       :foreground (face-attribute 'font-lock-builtin-face :foreground)
+                       :background "SlateBlue4")
+   (set-face-attribute 'company-preview nil
+                       :foreground (face-attribute 'font-lock-builtin-face :foreground)
+                       :background "SlateBlue4")
+   (set-face-attribute 'company-preview-search nil
+                       :background "SlateBlue1")
+   #+END_SRC
+* Parentheses
+  #+BEGIN_SRC emacs-lisp
+  (require 'highlight-parentheses)
+    (show-paren-mode 1)
+    (setq show-paren-delay 0)
+
+    (define-globalized-minor-mode global-highlight-parentheses-mode
+      highlight-parentheses-mode
+      (lambda ()
+        (highlight-parentheses-mode t)))
+    (global-highlight-parentheses-mode t)
+
+    (require 'rainbow-delimiters)
+
+    (set-face-attribute 'rainbow-delimiters-depth-1-face nil
+            :foreground "#78c5d6")
+    (set-face-attribute 'rainbow-delimiters-depth-2-face nil
+            :foreground "#bf62a6")
+    (set-face-attribute 'rainbow-delimiters-depth-3-face nil
+            :foreground "#459ba8")
+    (set-face-attribute 'rainbow-delimiters-depth-4-face nil
+            :foreground "#e868a2")
+    (set-face-attribute 'rainbow-delimiters-depth-5-face nil
+            :foreground "#79c267")
+    (set-face-attribute 'rainbow-delimiters-depth-6-face nil
+            :foreground "#f28c33")
+    (set-face-attribute 'rainbow-delimiters-depth-7-face nil
+            :foreground "#c5d647")
+    (set-face-attribute 'rainbow-delimiters-depth-8-face nil
+            :foreground "#f5d63d")
+    (set-face-attribute 'rainbow-delimiters-depth-9-face nil
+            :foreground "#78c5d6")
+
+    (set-face-attribute 'rainbow-delimiters-unmatched-face nil
+            :foreground 'unspecified
+            :inherit 'show-paren-mismatch
+            :strike-through t)
+
+    (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+    (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
+
+    (electric-pair-mode 1)
+  #+END_SRC
+* modes
+  #+BEGIN_SRC emacs-lisp
+  (require 'emacs-web)
+  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (require 'emacs-evil)
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (require 'emacs-shells)
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (require 'emacs-elfeed)
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (require 'emacs-javascript)
+#+END_SRC
+  #+RESULTS:
+  : emacs-elfeed
